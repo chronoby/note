@@ -25,7 +25,7 @@ for each pixel do
 
 ### Orthographic views
 
-To fit an image with $n_x × n_y$ pixels into a rectangle of size (r − l) × (t − b), the pixels are spaced a distance $(r − l)/n_x$ apart horizontally and $(t − b)/n_u$ apart vertically, with a half-pixel space around the edge to center the pixel grid within the image rectangle. This means that the pixel at position (i, j) in the raster image has the position
+To fit an image with ![](http://latex.codecogs.com/gif.latex?n_x*n_y) pixels into a rectangle of size (r − l) × (t − b), the pixels are spaced a distance $(r − l)/n_x$ apart horizontally and $(t − b)/n_u$ apart vertically, with a half-pixel space around the edge to center the pixel grid within the image rectangle. This means that the pixel at position (i, j) in the raster image has the position
 $$  
 u = l + (r − l)(i + 0.5)/n_x
 v = b + (t − b)(j + 0.5)/n_y(4.1)
@@ -48,7 +48,7 @@ Procedure:
 - ray.direction ← −d **w** + u **u** + v **v**
 - ray.origin ← **e**
 
-![avatar](/CG/Image/Views.png.png)
+![avatar]("https://github.com/chronoby/note/blob/master/CG/Image/Views.png")
 
 ## Ray-Object Intersection
 
