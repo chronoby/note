@@ -65,9 +65,9 @@ M_{cam} =
 \end{bmatrix}
 $$
 
-## Porjection transformation
-
-### The viewport transformation
+## The viewport transformation
+### The orthographic projection transformation
+Just drop z coordinate!
 
 We assume that the geometry we want to view is in the canonical view volume, and we wish to view it with an orthographic camera looking in the -z direction.
 
@@ -92,10 +92,7 @@ $$
 \end{bmatrix}
 $$
 
-### The orthographic projection transformation
-Just drop z coordinate!
-
-### Projection transformation
+### The Perspective projection transformation
 
 $$
 y_s = (n/z)y
