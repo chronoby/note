@@ -9,9 +9,8 @@ Note that one can replace the global new and delete operators as well as overloa
 
 - Placement new
 
-https://stackoverflow.com/questions/222557/what-uses-are-there-for-placement-new
+<https://stackoverflow.com/questions/222557/what-uses-are-there-for-placement-new>
 
 - Memory fragmentation
 
-https://stackoverflow.com/questions/3770457/what-is-memory-fragmentation
-
+<https://stackoverflow.com/questions/3770457/what-is-memory-fragmentation>

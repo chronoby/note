@@ -6,5 +6,3 @@
 ## Rasterization
 
 ### Line drawing
-
-

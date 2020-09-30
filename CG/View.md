@@ -1,21 +1,26 @@
-# View 
+# View
 
 ## View transformation
+
 The 3D to 2D mapping is called viewing transformation, and it plays an important role in object-order rendering.
 
 As with all complicated transformations it is best approached by breaking it up into a product of several simpler transformations. Most graphics systems do this by using a sequence of three transformations:
+
 - A camera transformation or eye transformation, which is a rigid body transformation that places the camera at the origin in a convenient orientation. It depends only on the position and orientation, or pose, of the camera.
 - A projection transformation, which projects points from camera space so that all visible points fall in the range −1 to 1 in x and y. It depends only
 on the type of projection desired.
 - A viewport transformation or windowing transformation, which maps this unit image rectangle to the desired rectangle in pixel coordinates. It depends only on the size and position of the output image.
 
-### Transformation 
+### Transformation
+
 Windowing transformations: we need to create a transform matrix that takes points in the rectangle $[x_l, x_h]*[y_l, y_h]$ to the rectangle $[x_l', x_h']*[y_l', y_h']$
 
 process:
+
 1. Move the point $(x_l, y_l)$ to the origin.
 2. Scale the rectangle to be the same size as the target rectangle.
 3. Move the origin to point $(x_l', y_l')$
+
 $$
 window = translate(x_l', y_l')scale(\frac{x_h'-x_l'}{x_h-x_l})translate(-x_l, -y_l)
 $$
@@ -24,7 +29,7 @@ $$=
    \frac{x_h'-x_l'}{x_h-x_l} & 0 & \frac{x_l'x_h-x_h'x_l}{x_h-x_l} \\
    0 & \frac{y_h'-y_l'}{y_h-y_l} & \frac{y_l'y_h-y_h'y_l}{y_h-y_l} \\
    0 & 0 & 1
-\end{bmatrix} 
+\end{bmatrix}
 $$
 
 - Quaternions
@@ -33,6 +38,7 @@ $$
 ### The camera transformation
 
 Define the camera first:
+
 - the eye position **e**
 - the gaze direction **g**
 - the view-up vector **t**
@@ -45,7 +51,7 @@ v = w\times u
 $$
 The equation is
 $$
-M_{cam} = 
+M_{cam} =
 \begin{bmatrix}
    u & v & w & e \\
    0 & 0 & 0 & 1
@@ -66,7 +72,9 @@ M_{cam} =
 $$
 
 ## The viewport transformation
+
 ### The orthographic projection transformation
+
 Just drop z coordinate!
 
 We assume that the geometry we want to view is in the canonical view volume, and we wish to view it with an orthographic camera looking in the -z direction.
@@ -78,7 +86,7 @@ $$
    x_{screen} \\
    y_{screen} \\
    0
-\end{bmatrix} = 
+\end{bmatrix} =
 \begin{bmatrix}
    \frac{n_x}{2} & 0 & 0\\
    0 & \frac{n_y}{2} & \frac{n_y-1}{2}\\
@@ -98,7 +106,7 @@ $$
 y_s = (n/z)y
 $$
 $$
-P = 
+P =
 \begin{bmatrix}
    n & 0 & 0 & 0\\
    0 & n & 0 & 0\\
@@ -108,4 +116,5 @@ P =
 $$
 
 ## Field of view
+
 reserved

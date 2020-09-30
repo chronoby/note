@@ -5,9 +5,11 @@
 - A raster image is a big array of pixels, each of which stores information about the color of the image at its grid point.
 - The pixel value is a local average of the color of the image, and it is called a *point sample* of the image.
 - The rectangular domain of a $n_x*n_y$ image is
+
 $$R=[-0.5,n_x-0.5]*[-0.5,n_y-0.5].$$
 
 ### Pixel values
+
 - 1-bit grayscale—text and other images where intermediate grays are not
 desired (high resolution required);
 - 8-bit RGB fixed-range color (24 bits total per pixel)—web and email applications, consumer photographs;
@@ -21,8 +23,9 @@ professional photography;
 
 ### Alpha compositing
 
-- The most important piece of information needed to blend a foreground object over a background object is the *pixel coverage*, which tells the fraction of the pixel covered by the foreground layer. We can call this fraction α. 
+- The most important piece of information needed to blend a foreground object over a background object is the *pixel coverage*, which tells the fraction of the pixel covered by the foreground layer. We can call this fraction α.  
 - If we want to composite a foreground color $c_f$ over background color $c_b$, and the fraction of the pixel covered by the foreground is $\alpha$, then we can use the formula
+
 $$c=\alpha c_f+(1-\alpha)c_b$$
 
 ## Image storage
