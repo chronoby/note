@@ -14,3 +14,7 @@ Note that one can replace the global new and delete operators as well as overloa
 - Memory fragmentation
 
 <https://stackoverflow.com/questions/3770457/what-is-memory-fragmentation>
+
+- C++ new-handler
+
+See in *Effective C++*.

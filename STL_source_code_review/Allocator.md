@@ -61,3 +61,46 @@ SGI的设计方法：
 - 第二级配置器视情况采用不同的策略：
   - 当配置区块超过128byte时，视为“足够大”，调用第一级配置器
   - 当配置区块小于128byte时，视为“过小”，为了降低额外负担(overhead)，使用复杂的memory pool整理方式
+
+### 第一级配置器 __malloc_alloc_template
+
+- 一级配置器以malloc(), free(), realloc()等C函数执行实际的内存分配、释放、重分配操作，并实现出类似C++ new-handler的机制
+- 所谓C++ new-handler机制是，它可以要求系统在内存分配需求无法满足时，调用一个你所指定的函数，即一旦::operator new无法完成任务，在丢出std::bad_alloc异常状态之前，会先调用由客户端指定的处理例程，该处理例程被称为new-handler
+(C++ new-handler见./cpp_tips.md)
+
+### 第二级配置器 __default_alloc_template
+
+- 第二级配置避免太多小额区块造成的内存碎片
+- 小额区块带来的不仅是内存碎片，配置时的额外负担也是一个问题
+- 当区块小于128 byte时，以内存池管理：维护一系列大小为8 byte倍数的free-list
+
+### 空间配置函数allocate()
+
+- __default_alloc_template的标准接口函数
+- 先判断区块大小
+  - 大于128 bytes就调用第一级配置器
+  - 小于128 bytes就检查对应free list，若有可用区块，直接拿来用；诺没有，则将区块大小上调至8倍数边界，然后调用refill()，准备为free list重新填充空间
+
+### 空间释放函数deallocate()\
+
+- 判断区块大小
+  - 大于128 bytes调用第一级配置器
+  - 小于128 bytes找出对应free list，将区块回收
+
+### 重新填充free lists
+
+- 从内存池取空间为free lsits重新填充空间
+
+### 内存池
+
+分为多种情况
+
+- 内存充足：则调出20个区块返回给free list
+- 内存不足以提供20个区块，但还足以供应一个以上的区块，拨出不足20个区块的空间出去，nobjs参数修改为实际能提供的区块数
+- 一个区块都无法供应，则使用malloc()中分配内存
+- 若system heap的空间不足，则利用out-of-memory处理机制（类似new-handler机制），释放其他内存来使用
+- 否则抛出bad_alloc异常
+
+## 内存基本处理工具
+
+reversed
