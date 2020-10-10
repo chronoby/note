@@ -19,7 +19,7 @@
 ```cpp
 class GamePlayer {
 private:
-    static const int NumTurns = 5;
+    static const int NumTurns = 5; // 声明式
     int scores[NumTurns];
 }
 ```
@@ -28,7 +28,7 @@ private:
 - 只要不取它们的地址，或纵使你不去地址而编译器坚持要一个定义式，不虚提供定义式如下：
 
 ```cpp
-const int GamePlayer::NumTurns; //定义式
+const int GamePlayer::NumTurns; // 定义式
 ```
 
 - 将这个式子放进实现文件而非头文件
