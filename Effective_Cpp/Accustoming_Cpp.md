@@ -106,3 +106,8 @@ char* pc = &cctb[0];
 - 将某些东西生命为const以帮助编译器侦测出错误用法
 - 编译器强制实施bitwise constness，但你编写程序时应该使用“概念上的常量性”
 - 当const和non-const成员函数有着实质等价的实现时，领non-const版本调用const版本可避免代码重复
+
+## Item 4: make sure that objects are initialized before they're used
+
+- 使用member initialzation list而非在构造函数体内赋值，效率更高
+- 总是在初始化列表中列出所有成员变量
