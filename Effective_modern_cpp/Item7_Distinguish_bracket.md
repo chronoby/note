@@ -28,7 +28,7 @@ std::atomic<int> y(0);  // correct
 std::atomic<int> z = 0; // error!
 ```
 
-- 花括号表达式有一个异常的特性：不允许内置类型隐式的变窄转换(narrowing conversion)
+- 花括号表达式有一个特性：不允许内置类型隐式的变窄转换(narrowing conversion)
 
 ```cpp
 double x, y, z;
@@ -96,7 +96,6 @@ Widget w4{10, 5.0};      // 使用花括号初始化
 ```
 
 - 甚至普通的构造函数和移动构造函数都会被std::initializer_list劫持
-- 编译器热衷于把括号初始化与std::initializer_list构造函数匹配，热衷程度甚至超过了最佳匹配
 
 ```cpp
 class Widget
@@ -115,3 +114,50 @@ Widget w7(std::move(w4));    // 使用小括号，调用移动构造函数
 
 Widget w8{std::move(w4)};    // 使用花括号，调用std::initializer_list构造函数  
 ```
+
+- 编译器热衷于把括号初始化与std::initializer_list构造函数匹配，热衷程度甚至超过了最佳匹配
+
+```cpp
+class Widget
+{
+public:  
+    Widget(int i, bool b);
+    Widget(int i, double d);
+    Widget(std::initializer_list<bool> il);
+    ...
+};
+Widget w{10, 5.0};      //错误！要求变窄转换
+```
+
+- 这里，编译器会直接忽略前面两个构造函数，尝试调用第三个构造函数
+- 只有当没办法吧括号初始化中的实参转化为std::initializer_list时，编译器才会回到正常的函数决议流程中
+- 假如你使用的花括号初始化是空集，并且你欲构建的对象有默认构造函数，也有std::initializer_list构造函数，空的花括号意味着没有实参，不是一个空的std::initializer_list
+- 如果你想调用std::initializer_list构造，你就得创建一个空花括号的实参来表明你想调用一个std::initializer_list构造函数，它的实参是一个空值。
+
+```cpp
+Widget w4({});        // 调用std::initializer_list
+Widget w5{{}};        // 同上
+```
+
+在vector中
+
+```cpp
+std::vector<int> v1(10, 20);    //使用非std::initializer_list
+                                //构造函数创建一个包含10个元素的std::vector
+                                //所有的元素的值都是20
+std::vector<int> v2{10, 20};    //使用std::initializer_list
+                                //构造函数创建包含两个元素的std::vector
+                                //元素的值为10和20
+```
+
+两个结论：
+
+- 作为一个类库作者，你需要意识到如果你的一堆构造函数中重载过一个或者多个std::initializer_list， 用户代码如果使用了括号初始化，可能只会看到你重载的std::initializer_list这一个版本的构造函数。 因此，你最好把你的构造函数设计为不管用户是小括号还是使用花括号进行初始化都不会有什么影响。
+- 作为一个类库使用者，你必须认真的在花括号和小括号之间选择一个来创建对象。
+
+Things to Remember:
+
+- 括号初始化是最广泛使用的初始化语法，它防止变窄转换，并且对于C++最令人头疼的解析有天生的免疫性
+- 在构造函数重载决议中，括号初始化尽最大可能与std::initializer_list参数匹配，即便其他构造函数看起来是更好的选择
+- 对于数值类型的std::vector来说使用花括号初始化和小括号初始化会造成巨大的不同
+- 在模板类选择使用小括号初始化或使用花括号初始化创建对象是一个挑战。
