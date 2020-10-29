@@ -22,3 +22,5 @@ See in *Effective C++*.
 ## auto_ptr
 
 ## partial specialization
+
+## 虚继承

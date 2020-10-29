@@ -117,3 +117,31 @@ do
 ### 有限缓冲问题
 
 ### 读者-写者问题
+
+- Reader: 只能读
+- Writer: 可以写和读
+
+问题：允许多个reader同时读，只有一个writer可以获取数据
+
+### 哲学家进餐问题
+
+```c
+while (true) {
+    wait(chopstick[i]);
+    wait(chopstick[(i+1) % 5]);
+    ...
+    /* eat for a while */
+    ...
+    signal(chopstick[i]);
+    signal(chopstick[(i+1) % 5]);
+    ...
+    /* think for awhile */
+    ...
+}
+```
+
+可能导致死锁
+
+## 管程(Monitor)
+
+管程结构确保一次只有一个进程能在管程内活动
