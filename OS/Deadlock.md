@@ -136,3 +136,8 @@ go to step 2.
 4. If Finish[i] == false, for some i, 1 <= i <= n, then the system is in deadlock state. Moreover, if Finish[i] == false, then Pi is deadlocked.
 
 O(m * n^2)
+
+## 死锁恢复
+
+- 终止所有死锁进程
+- 一次只终止一个进程直到取消死锁循环为止
