@@ -78,3 +78,15 @@ Dynamically linking also known as shared libraries.
 
 - 将物理内存分为固定大小的块，称为帧(frame)
 - 将逻辑内存分为同样大小的块，称为页(page)
+
+CPU 生成的每个地址分为两部分：页号(p)和页偏移(d)
+
+### 硬件实现
+
+- Page table is kept in memory
+- 页表基寄存器(page-table base register, PTBR)
+- 转换表缓冲(translation look-aside buffer, TLB)
+
+## 页表
+
+### 层次页表
