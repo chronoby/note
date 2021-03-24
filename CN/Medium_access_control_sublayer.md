@@ -1,5 +1,7 @@
 # 介质访问控制子层
 
+- 网络链路可以分为两大类：使用点到点连接和使用广播信道
+
 - 广播信道有时候也被为多路访问信道(multiaccess channel)或随机访问信道(random accesss channel)
 - 用来确定多路访问信道下一个使用者的协议输入数据链路层的一个子层，成为介质访问控制(MAC, Medium Access Control)子层
 
