@@ -33,7 +33,7 @@ std::array<int, arraySize> data;  // error! arraySize的值在编译期不可知
 
 例：我们需要编译器计算pow
 
-- C++ 11 中，constexpr函数的代码不超过一行豫剧：一个return
+- C++ 11 中，constexpr函数的代码不超过一行语句：一个return
 
 ```cpp
 constexpr
